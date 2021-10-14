@@ -19,6 +19,7 @@ class Tamago
   def one_day_passes!
     increase_hunger
     increase_thirst
+    update_health
   end 
 
   def feed!
@@ -27,6 +28,14 @@ class Tamago
 
   def give_water!
     @thirst = 0
+  end
+
+  def alive?
+    @health_points > 0
+  end
+
+  def dead?
+    !alive?
   end
 
   private 
@@ -40,9 +49,10 @@ class Tamago
   end
 
   def update_health
-    @health += HEALTH_REGEN
-    @health -= (@thirst / 2)
-    @health -= (@hunger / 2)
+    @health_points += HEALTH_REGEN 
+    @health_points = [@health_points, BASE_HEALTH].min
+    @health_points -= (@thirst / 2)
+    @health_points -= (@hunger / 3)
   end
 
 end
