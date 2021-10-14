@@ -1,5 +1,4 @@
 require_relative "tamago"
-require_relative "status"
 
 def display_status(tama)  
   print "\n\n\n"
@@ -20,7 +19,7 @@ end
 puts "Hello! Welcome to TamaLand"
 puts "Meet your new Tama! What name would you like to give him ?"
 
-print "> \n"
+print "> "
 name = gets.chomp.capitalize
 
 tama = Tamago.new(name)
@@ -33,16 +32,20 @@ loop do
   print `clear`
   puts "This is day #{day} with your Tama #{tama.name}. Here is how he feels"
   display_status(tama)
-  puts "What would you like to do ? (feed, water, nothing)"
+  puts "What would you like to do ?"
+  puts "1 - Feed him"
+  puts "2 - Give him water"
+  puts "Press any other key to do nothing"
   
-  choice = gets.chomp
+  choice = gets.chomp.to_i
 
   case choice
-  when 'feed' then tama.feed!
-  when 'water' then tama.give_water!
+  when 1 then tama.feed!
+  when 2 then tama.give_water!
   end
 
   tama.one_day_passes!
+  day += 1
   break if tama.dead?
 end
 
